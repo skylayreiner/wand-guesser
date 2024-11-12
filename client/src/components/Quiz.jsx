@@ -1,28 +1,140 @@
+import { useState } from "react";
+import Question from './Question';
+import Results from './Results';
+
+
+const PLACEHOLDER_QUIZ_DATA = [
+  {
+    wandInfo: {
+      id: 1,
+      woodType: "Yew",
+      core: "Thestral tail hair",
+      length: "15 inches",
+      img: "https://noblecollection.co.uk/wp-content/uploads/2018/07/Dumbledore-Wand.png"
+    },
+    options: [
+      {
+        owner: "Albus Dumbledore",
+        id: 2,
+        correct: true
+      },
+      {
+        owner: "Ron Weasley",
+        id: 3,
+        correct: false
+      },
+      {
+        owner: "Draco Malfoy",
+        id: 4,
+        correct: false
+      },
+      {
+        owner: "Hermione Granger",
+        id: 5,
+        correct: false
+      }
+    ]
+  },
+  {
+    wandInfo: {
+      id: 2,
+      woodType: "Holly",
+      core: "Phoenix feather",
+      length: "11 inches",
+      img: "https://noblecollection.co.uk/wp-content/uploads/2018/07/Harry-Potter-Wand.png"
+    },
+    options: [
+      {
+        owner: "Albus Dumbledore",
+        id: 2,
+        correct: false
+      },
+      {
+        owner: "Harry Potter",
+        id: 3,
+        correct: true,
+      },
+      {
+        owner: "Draco Malfoy",
+        id: 4,
+        correct: false
+      },
+      {
+        owner: "Hermione Granger",
+        id: 5,
+        correct: false
+      }
+    ]
+  },
+  {
+    wandInfo: {
+      id: 2,
+      woodType: "Holly",
+      core: "Phoenix feather",
+      length: "11 inches",
+      img: "https://noblecollection.co.uk/wp-content/uploads/2018/07/Harry-Potter-Wand.png"
+    },
+    options: [
+      {
+        owner: "Albus Dumbledore",
+        id: 2,
+        correct: false
+      },
+      {
+        owner: "Harry Potter",
+        id: 3,
+        correct: true,
+      },
+      {
+        owner: "Draco Malfoy",
+        id: 4,
+        correct: false
+      },
+      {
+        owner: "Hermione Granger",
+        id: 5,
+        correct: false
+      }
+    ]
+  }
+]
+
+
+
+// INSANE mode should replace multiple choice with fill in the blank
+// Prevent cheating ???
+
+
 export default function Quiz() {
+  const [questionIdx, setQuestionIdx] = useState(0);
+  const questionData = PLACEHOLDER_QUIZ_DATA[questionIdx];
+
+
+  function handleSubmitOwner(guessedOwner) {
+    if (guessedOwner) {
+      const correctOwner = questionData.options.find((option) => option.correct === true)?.owner;
+      if (guessedOwner === correctOwner) {
+        alert("correct!")
+      } else {
+        alert("incorrect!")
+      }
+      setQuestionIdx(questionIdx + 1);
+    }
+  }
+
+  function isInProgress(idx) {
+    if (idx >= 0 && idx < PLACEHOLDER_QUIZ_DATA.length) {
+      return true;
+    }
+    return false;
+  }
+
   return (
-    <div className="mx-auto max-w-6xl bg-black flex min">
-
-      <div className="w-3/5 min-h-[80dvh]">
-        <img className="object-cover" src="https://noblecollection.co.uk/wp-content/uploads/2018/07/Dumbledore-Wand.png" alt="Wands" />
-
-
-      </div>
-      <div className="relative flex flex-col w-2/3 m-10 space-y-2 mt-10">
-        <h2 className="text-4xl">Whose wand is this?</h2>
-        <h3 className="text-2xl italic">Wand Details</h3>
-        <ul className="flex flex-col">
-          <li className="inline-flex gap-1">Wood Type:<p className="font-bold">Yew</p></li>
-          <li className="inline-flex gap-1">Core: <p className="font-bold">Thestral tail hair</p></li>
-          <li className="inline-flex gap-1">Length: <p className="font-bold">15 inches</p></li>
-        </ul>
-        <div className="grid gap-1 w-96 pt-5">
-          <button className="bg-slate-100 h-14">Option A</button>
-          <button className="bg-slate-100 h-14">Option B</button>
-          <button className="bg-slate-100 h-14">Option C</button>
-          <button className="bg-slate-100 h-14">Option D</button>
-        </div>
-
-      </div>
+    <div>
+      <div>{questionIdx}/{PLACEHOLDER_QUIZ_DATA.length}</div>
+      {isInProgress(questionIdx) ?
+        <Question handleSubmit={handleSubmitOwner} questionInfo={questionData} /> : <Results />
+      }
     </div>
   )
 }

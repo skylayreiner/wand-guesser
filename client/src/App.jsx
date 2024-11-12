@@ -20,8 +20,8 @@ export default function App() {
         {hasStarted ? <Quiz /> :
           <>
             <div className="p-4">
-              <h2 className="text-2xl">Wand Guesser</h2>
-              <p className="text-lg">Guess the wand based on the description</p>
+              <h2 className="text-2xl"></h2>
+              <p className="text-lg">Guess the wand owner based on the description</p>
             </div>
             <div className="p-4">
               <button onClick={() => setHasStarted(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
