@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch index.js"
+  },
+  "engines": {
+    "node": "22.11.0",
+    "npm": "10.9.0"
+  },
+  "author": "Skyla Reiner",
+  "license": "ISC",
+  "description": "Server for MVP of Wand Guesser",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.1"
+  }
+}
